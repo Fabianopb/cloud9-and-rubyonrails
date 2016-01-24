@@ -1,0 +1,63 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+    $ sudo service postgresql start
+    $ sudo sudo -u postgres psql
+    $ postgres=# CREATE DATABASE "mydb";
+    
+    $ postgres=# CREATE USER username SUPERUSER PASSWORD 'password';
+    $ postgres=# \q
+    $ echo "export USERNAME=username" >> ~/.profile
+    $ echo "export PASSWORD=password" >> ~/.profile
+    $ source ~/.profile
+
+    $ sudo sudo -u postgres psql
+
+    $ postgres# UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
+    $ postgres# DROP DATABASE template1;
+    $ postgres# CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UNICODE';
+    $ postgres# UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';
+    $ postgres# \c template1
+    $ postgres# VACUUM FREEZE;
+    $ postgres# \q
+    
+    To create a database with the same name as defined in database.yml:
+    $ bundle exec rake db:create
+
+
+* Database initialization
+
+    Edit the database.yml to include:
+    
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host:     <%= ENV['IP'] %>
+  
+
+* How to run the test suite
+    $ rails s -b $IP -p $PORT
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
